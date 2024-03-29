@@ -3,10 +3,11 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { wrapper } from "@/redux/store";
+import { UserList } from "@/redux/services/UserService";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({menu}) {
+export default function Home({data}) {
   return (
     <>
       <Head>  
@@ -115,10 +116,12 @@ export default function Home({menu}) {
 }
 
 
-export const getServerSideProps = wrapper.getServerSideProps(store=>({ctx})=>{
+export const getServerSideProps = wrapper.getServerSideProps(store=> async ({ctx})=>{
+  let data = null
+  data = await store.dispatch(UserList({})).unwrap()
   return {
     props : { 
-      menu : ''
+      data
     }
   }
 })
