@@ -1,9 +1,9 @@
 import SERVER from "@/helpers/AxiosConfig";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const AuthLogin = createAsyncThunk('AuthLogin', async (formData, thunk) => {
+export const UserList = createAsyncThunk('UserList', async (params, thunk) => {
   try {
-    return await SERVER.post('/auth/login', formData)
+    return await SERVER.get('/users', {params})
   } catch (error) {
     return thunk.rejectWithValue(error)
   }
